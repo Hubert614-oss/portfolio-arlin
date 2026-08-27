@@ -12,9 +12,10 @@ import {
 	IoMailOutline,
 	IoInformationCircleOutline,
 } from 'react-icons/io5'
+import { useContentStore, type Page } from '../stores/content.store'
 
 interface MenuDrawerMobileProps {
-	navItems: { label: string; href: string }[]
+	navItems: { label: string; href: string; route: Page }[]
 	isOpen: boolean
 	onClose: () => void
 }
@@ -83,6 +84,10 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 		},
 	}
 
+
+	const setPage = useContentStore((state) => state.setPage)
+
+
 	return (
 		<>
 			<AnimatePresence>
@@ -134,8 +139,11 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 									{navItems.map((item) => (
 										<motion.li key={item.label} variants={itemVariants}>
 											<a
-												href={item.href}
-												onClick={onClose}
+												// href={item.href}
+												onClick={() => {
+													onClose();
+													setPage(item.route);
+												}}
 												className="group flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-200"
 											>
 												<span className="text-cyan/70 group-hover:text-cyan transition-colors">

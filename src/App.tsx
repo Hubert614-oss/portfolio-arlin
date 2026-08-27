@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './components/Header'
+import PrincipalPage from './components/PrincipalPage'
 import MenuDrawerMobile from './components/MenuDrawerMobile'
+import type { Page } from './stores/content.store'
 
 
 
@@ -13,17 +14,17 @@ function App() {
   const handleMenuClose = () => setIsMenuOpen(false)
 
   const navItems = [
-    { label: 'Accueil', href: '#accueil' },
-    { label: 'Projets', href: '#projets' },
-    { label: 'Technos', href: '#technos' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Accueil', href: 'accueil', route: 'accueil' as Page },
+    { label: 'Projets', href: 'projets', route: 'projets' as Page },
+    { label: 'Technos', href: 'technos', route: 'technos' as Page },
+    { label: 'Contact', href: 'contact', route: 'contact' as Page },
   ]
 
 
   return (
     <>
       <div className="h-screen">
-        <Header
+        <PrincipalPage
           navItems={navItems}
           isMenuOpen={isMenuOpen}
           onMenuToggle={handleMenuToggle}
