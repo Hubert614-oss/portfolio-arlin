@@ -1,33 +1,86 @@
+import { motion, useInView } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
-import { motion, type Variants } from "framer-motion";
+import { containerVariants, itemVariants, titleContainerVariants, titleLetterVariants, floatingAnimation } from '../../utils/animation';
 
-type HeaderProps = {
-    isLoaded: boolean
-    statsRef: React.RefObject<HTMLDivElement | null>
-    isStatsInView: boolean
-    stats: Array<{ value: number; suffix: string; label: string }>
-    floatingAnimation: any
-    containerVariants: Variants
-    itemVariants: Variants
-    titleContainerVariants: Variants
-    titleLetterVariants: Variants
-    AnimatedCounter: React.ComponentType<any>
-}
+import { stats } from '../../utils/data';
+import { Link } from "react-router-dom";
 
-const Header = ({
-    isLoaded,
-    statsRef,
-    isStatsInView,
-    stats,
-    floatingAnimation,
-    containerVariants,
-    itemVariants,
-    titleContainerVariants,
-    titleLetterVariants,
-    AnimatedCounter
-}: HeaderProps) => {
+
+
+
+
+const Home = () => {
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    const statsRef = useRef<HTMLDivElement | null>(null)
+    const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" })
+
+
+
+
+
+    useEffect(() => {
+        setIsLoaded(true)
+    }, [])
+
+
+    // Animated counter component
+    type AnimatedCounterProps = {
+        value: number
+        suffix: string
+        label: string
+        delay: number
+    }
+
+    const AnimatedCounter = ({ value, suffix, label, delay }: AnimatedCounterProps) => {
+        const [count, setCount] = useState(0)
+        const counterRef = useRef<HTMLDivElement | null>(null)
+        const isInView = useInView(counterRef, { once: true })
+
+        useEffect(() => {
+            if (isInView) {
+                const timer = setTimeout(() => {
+                    let start = 0
+                    const end = value
+                    const duration = 2000
+                    const increment = end / (duration / 16)
+
+                    const counter = setInterval(() => {
+                        start += increment
+                        if (start >= end) {
+                            setCount(end)
+                            clearInterval(counter)
+                        } else {
+                            setCount(Math.floor(start))
+                        }
+                    }, 16)
+
+                    return () => clearInterval(counter)
+                }, delay * 200)
+
+                return () => clearTimeout(timer)
+            }
+        }, [isInView, value, delay])
+
+        return (
+            <motion.div
+                ref={counterRef}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: delay * 0.15 }}
+                className="text-center"
+            >
+                <p className="text-4xl md:text-5xl font-bold bg-linear-to-r from-white to-cyan bg-clip-text text-transparent">
+                    {count}{suffix}
+                </p>
+                <p className="text-sm md:text-base text-gray-300 mt-2 font-medium">{label}</p>
+            </motion.div>
+        )
+    }
+
     return (
-        <header className="relative z-20 pt-24 pb-20 md:pt-20 md:pb-32">
+        <div className="relative z-20 pt-24 pb-20 md:pt-20 md:pb-32">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -46,7 +99,7 @@ const Header = ({
                                 <img src={`https://res.cloudinary.com/duzwmu0rx/image/upload/v1787764768/arlin_webp_uuelci.webp`} alt="Arlin Hubert" className="w-full h-full object-cover" />
                             </div>
                         </motion.div>
-                        
+
                     </motion.div>
 
                     {/* Partie Droite - Contenu Principal */}
@@ -133,10 +186,7 @@ const Header = ({
                             variants={itemVariants}
                             className="flex flex-row flex-wrap gap-4"
                         >
-                            <motion.a
-                                href="#projets"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
+                            <Link to="/projets"
                                 className="group relative px-5 py-3 text-sm sm:text-base sm:px-8 sm:py-4 bg-gray-900 text-white font-bold rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-gray-900/20 text-center"
                             >
                                 <span className="relative z-10 flex items-center justify-center gap-2">
@@ -149,12 +199,9 @@ const Header = ({
                                     </motion.span>
                                 </span>
                                 <div className="absolute inset-0 bg-linear-to-r from-cyan/20 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </motion.a>
+                            </Link>
 
-                            <motion.a
-                                href="#contact"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
+                            <Link to="/contact"
                                 className="group px-5 py-3 text-sm sm:text-base sm:px-8 sm:py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-xl hover:bg-white/5 hover:border-white/30 transition-all duration-300 backdrop-blur-sm text-center"
                             >
                                 <span className="flex items-center justify-center gap-2">
@@ -164,10 +211,10 @@ const Header = ({
                                         animate={{ rotate: [0, 15, -15, 0] }}
                                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
                                     >
-                                        👋
+                                        🤝
                                     </motion.span>
                                 </span>
-                            </motion.a>
+                            </Link>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -197,8 +244,8 @@ const Header = ({
                     </div>
                 </motion.div>
             </div>
-        </header>
+        </div>
     )
 }
 
-export default Header
+export default Home

@@ -1,42 +1,22 @@
-import { useState } from 'react'
+
 import './App.css'
-import PrincipalPage from './components/PrincipalPage'
-import MenuDrawerMobile from './components/MenuDrawerMobile'
-import type { Page } from './stores/content.store'
+import AppRoutes from './routes'
+import { BrowserRouter } from 'react-router-dom'
+import Layout from './components/Layout'
 
 
 
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const handleMenuToggle = () => setIsMenuOpen((prev) => !prev)
-  const handleMenuClose = () => setIsMenuOpen(false)
-
-  const navItems = [
-    { label: 'Accueil', href: 'accueil', route: 'accueil' as Page },
-    { label: 'Projets', href: 'projets', route: 'projets' as Page },
-    { label: 'Technos', href: 'technos', route: 'technos' as Page },
-    { label: 'Contact', href: 'contact', route: 'contact' as Page },
-  ]
-
 
   return (
     <>
-      <div className="h-screen">
-        <PrincipalPage
-          navItems={navItems}
-          isMenuOpen={isMenuOpen}
-          onMenuToggle={handleMenuToggle}
-        />
-
-        <MenuDrawerMobile
-          navItems={navItems}
-          isOpen={isMenuOpen}
-          onClose={handleMenuClose}
-        />
-
-        {/* <Footer /> */}
+      <div className="h-screen overflow-y-auto scrollbar-hide">
+        <BrowserRouter>
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </BrowserRouter>
       </div>
     </>
   )

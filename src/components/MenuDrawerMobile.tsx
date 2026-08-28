@@ -12,10 +12,10 @@ import {
 	IoMailOutline,
 	IoInformationCircleOutline,
 } from 'react-icons/io5'
-import { useContentStore, type Page } from '../stores/content.store'
+import { Link } from 'lucide-react'
 
 interface MenuDrawerMobileProps {
-	navItems: { label: string; href: string; route: Page }[]
+	navItems: { label: string; href: string; route: string }[]
 	isOpen: boolean
 	onClose: () => void
 }
@@ -85,9 +85,6 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 	}
 
 
-	const setPage = useContentStore((state) => state.setPage)
-
-
 	return (
 		<>
 			<AnimatePresence>
@@ -121,7 +118,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 									transition={{ delay: 0.2 }}
 									className="text-xl font-bold text-white"
 								>
-									VICTUS
+									Arlin Hubert
 								</motion.span>
 								<motion.button
 									whileHover={{ scale: 1.1, rotate: 90 }}
@@ -138,11 +135,10 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 								<ul className="flex flex-col gap-1">
 									{navItems.map((item) => (
 										<motion.li key={item.label} variants={itemVariants}>
-											<a
-												// href={item.href}
+											<Link
+												to={item.route}
 												onClick={() => {
 													onClose();
-													setPage(item.route);
 												}}
 												className="group flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-200"
 											>
@@ -159,7 +155,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 												>
 													→
 												</motion.span>
-											</a>
+											</Link>
 										</motion.li>
 									))}
 								</ul>

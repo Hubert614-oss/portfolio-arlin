@@ -1,34 +1,32 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import Header from './sections/header';
-import { containerVariants, itemVariants, titleContainerVariants, titleLetterVariants, slideVariants, floatingAnimation } from '../utils/animation';
 
-import { stats, images } from '../utils/data';
-import Technologies from './sections/Technologies';
-import Projects from './sections/Projects';
-import Contact from './sections/Contact';
-import { useContentStore, type Page } from '../stores/content.store';
+import React, { useEffect, useState, useRef } from 'react'
+import { motion, AnimatePresence } from "framer-motion";
 
-type NavItem = { label: string; href: string; route: Page; }
+import MenuDrawerMobile from '../components/MenuDrawerMobile'
 
-type HeaderProps = {
-    navItems: NavItem[]
-    isMenuOpen: boolean
-    onMenuToggle: () => void
+import { images } from '../utils/data';
+import { slideVariants } from '../utils/animation';
+import { Link } from 'react-router-dom';
+
+
+interface LayoutProps {
+    children: React.ReactNode;
 }
 
-const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
+
+const Layout = ({ children }: LayoutProps) => {
+
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
-    const [isLoaded, setIsLoaded] = useState(false)
     const [showNav, setShowNav] = useState(true)
-    const statsRef = useRef<HTMLDivElement | null>(null)
     const lastScrollY = useRef(0)
-    const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" })
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const handleMenuToggle = () => setIsMenuOpen((prev) => !prev)
+    const handleMenuClose = () => setIsMenuOpen(false)
+
 
 
     // Auto-play slideshow
     useEffect(() => {
-        setIsLoaded(true)
         const interval = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % images.length)
         }, 5000)
@@ -61,72 +59,20 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
     }, [])
 
 
+    const navItems = [
+        { label: 'Accueil', href: 'accueil', route: '/accueil' },
+        { label: 'Projets', href: 'projets', route: '/projets' },
+        { label: 'Technos', href: 'technos', route: '/technos' },
+        { label: 'Contact', href: 'contact', route: '/contact' },
+    ]
 
-    // Animated counter component
-    type AnimatedCounterProps = {
-        value: number
-        suffix: string
-        label: string
-        delay: number
-    }
-
-    const AnimatedCounter = ({ value, suffix, label, delay }: AnimatedCounterProps) => {
-        const [count, setCount] = useState(0)
-        const counterRef = useRef<HTMLDivElement | null>(null)
-        const isInView = useInView(counterRef, { once: true })
-
-        useEffect(() => {
-            if (isInView) {
-                const timer = setTimeout(() => {
-                    let start = 0
-                    const end = value
-                    const duration = 2000
-                    const increment = end / (duration / 16)
-
-                    const counter = setInterval(() => {
-                        start += increment
-                        if (start >= end) {
-                            setCount(end)
-                            clearInterval(counter)
-                        } else {
-                            setCount(Math.floor(start))
-                        }
-                    }, 16)
-
-                    return () => clearInterval(counter)
-                }, delay * 200)
-
-                return () => clearTimeout(timer)
-            }
-        }, [isInView, value, delay])
-
-        return (
-            <motion.div
-                ref={counterRef}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: delay * 0.15 }}
-                className="text-center"
-            >
-                <p className="text-4xl md:text-5xl font-bold bg-linear-to-r from-white to-cyan bg-clip-text text-transparent">
-                    {count}{suffix}
-                </p>
-                <p className="text-sm md:text-base text-gray-300 mt-2 font-medium">{label}</p>
-            </motion.div>
-        )
-    }
-
-
-    const page = useContentStore((state) => state.page)
-    const setPage = useContentStore((state) => state.setPage)
 
     return (
-
         <>
             {/* Navigation Bar */}
-            <div id="accueil" className="relative overflow-hidden bg-white min-h-screen">
+            <div id="accueil" className="relative overflow-hidden bg-black min-h-screen">
 
-                
+
                 {/* Header background slideshow */}
                 <div className="absolute inset-0 z-0">
                     <AnimatePresence initial={false} mode="wait">
@@ -141,7 +87,7 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
                             className="absolute inset-0 w-full h-full object-cover"
                         />
                     </AnimatePresence>
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+                    <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
                 </div>
 
                 {/* Animated background particles */}
@@ -224,16 +170,12 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <a
-                                            // href={item.href}
-                                            onClick={() => {
-                                                setPage(item.route)
-                                            }}
-                                            className="relative px-4 py-2 text-slate-200 hover:text-white font-medium transition-all duration-300 group"
+                                        <Link to={item.href}
+                                            className="relative px-4 py-2 text-slate-200 hover:text-white font-medium transition-all duration-300 group cursor-pointer"
                                         >
                                             {item.label}
                                             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-cyan group-hover:w-3/4 transition-all duration-300 rounded-full" />
-                                        </a>
+                                        </Link>
                                     </motion.li>
                                 ))}
                             </motion.ul>
@@ -245,7 +187,7 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
                                 className="ml-auto md:ml-6"
                             >
                                 <button
-                                    onClick={onMenuToggle}
+                                    onClick={handleMenuToggle}
                                     className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors text-white"
                                     aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
                                     aria-expanded={isMenuOpen}
@@ -255,7 +197,7 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
                                     ) : (
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" 
+                                            viewBox="0 0 24 24"
                                             className="w-6 h-6"
                                             fill="none"
                                             stroke="currentColor"
@@ -272,40 +214,19 @@ const PrincipalPage = ({ navItems, isMenuOpen, onMenuToggle }: HeaderProps) => {
                     </div>
                 </nav>
 
-                {/* <p className='text-2xl font-bold text-white absolute top-30'>{page}</p>
-                <p className='text-2xl font-bold text-white absolute top-40'>{page}</p>
-
-                <button onClick={() => setPage('technos')} className="border border-slate-400 px-3 py-2 text-white font-bold absolute top-50">Homme</button> */}
-
-
-                {page === 'contact' && (<Contact />)}
-
-                {page === 'technos' && (<Technologies />)}
-
-                {page === 'projets' && (<Projects />)}
-
-                {page === 'accueil' &&
-
-                    (
-                        <Header
-                            isLoaded={isLoaded}
-                            statsRef={statsRef}
-                            isStatsInView={isStatsInView}
-                            stats={stats}
-                            floatingAnimation={floatingAnimation}
-                            containerVariants={containerVariants}
-                            itemVariants={itemVariants}
-                            titleContainerVariants={titleContainerVariants}
-                            titleLetterVariants={titleLetterVariants}
-                            AnimatedCounter={AnimatedCounter}
-                        />
-                    )
-                }
-
+                <main>
+                    {children}
+                </main>
 
             </div>
+
+            <MenuDrawerMobile
+                navItems={navItems}
+                isOpen={isMenuOpen}
+                onClose={handleMenuClose}
+            />
         </>
     )
 }
 
-export default PrincipalPage
+export default Layout

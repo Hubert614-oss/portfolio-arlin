@@ -7,12 +7,45 @@ import {
     Send,
 } from "lucide-react";
 
+import emailjs from "@emailjs/browser";
+
 import { ImGithub, ImWhatsapp } from "react-icons/im";
 import { GrLinkedin } from "react-icons/gr";
+import { useState, type FormEvent } from "react";
 
 
 
 const Contact = () => {
+
+    const [sending, setSending] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setSending(true);
+        setSuccess(false);
+
+        try {
+            await emailjs.sendForm(
+                "SERVICE_ID",
+                "TEMPLATE_ID",
+                e.currentTarget,
+                {
+                    publicKey: "PUBLIC_KEY",
+                }
+            );
+
+            setSuccess(true);
+            e.currentTarget.reset();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setSending(false);
+        }
+    };
+
     return (
         <section
             id="contact"
@@ -109,7 +142,7 @@ const Contact = () => {
 
                                 {/* Location */}
                                 <a
-                                    href="https://maps.app.goo.gl/xppYXjWSBbf8dSZX7"
+                                    href="https://maps.app.goo.gl/cNse6p6WqJduJyh26"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="group flex items-center gap-4"
@@ -183,6 +216,7 @@ const Contact = () => {
                     <div className="lg:col-span-3">
 
                         <form
+                            onSubmit={handleSubmit}
                             className="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 backdrop-blur md:p-10"
                         >
 
@@ -264,10 +298,11 @@ const Contact = () => {
 
                             {/* Submit */}
                             <button
+                                disabled={sending}
                                 type="submit"
-                                className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:from-cyan-400 hover:to-blue-500 hover:shadow-lg hover:shadow-cyan-500/20 sm:w-auto"
+                                className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:from-cyan-400 hover:to-blue-500 hover:shadow-lg hover:shadow-cyan-500/20 sm:w-auto"
                             >
-                                Envoyer le message
+                                {sending ? "Envoi en cours..." : "Envoyer le message"}
 
                                 <Send
                                     size={18}
