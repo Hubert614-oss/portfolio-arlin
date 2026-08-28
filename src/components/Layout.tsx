@@ -214,7 +214,7 @@ const Layout = ({ children }: LayoutProps) => {
                     </div>
                 </nav>
 
-                <main>
+                <main className='border border-red-600 overflow-auto scrollbar-hide'>
                     {children}
                 </main>
 

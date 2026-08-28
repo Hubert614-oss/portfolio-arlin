@@ -12,7 +12,7 @@ import {
 	IoMailOutline,
 	IoInformationCircleOutline,
 } from 'react-icons/io5'
-import { Link } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 interface MenuDrawerMobileProps {
 	navItems: { label: string; href: string; route: string }[]
@@ -59,18 +59,18 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 			x: 0,
 			transition: {
 				type: 'spring' as const,
-				stiffness: 300,
-				damping: 30,
-				staggerChildren: 0.08,
-				delayChildren: 0.15,
+				stiffness: 500,
+				damping: 40,
+				staggerChildren: 0.05,
+				delayChildren: 0.05,
 			},
 		},
 		exit: {
 			x: '-100%',
 			transition: {
 				type: 'spring' as const,
-				stiffness: 300,
-				damping: 30,
+				stiffness: 500,
+				damping: 40,
 			},
 		},
 	}
@@ -80,7 +80,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { type: 'spring' as const, stiffness: 300, damping: 24 },
+			transition: { type: 'spring' as const, stiffness: 500, damping: 35 },
 		},
 	}
 

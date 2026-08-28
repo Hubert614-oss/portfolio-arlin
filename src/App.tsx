@@ -11,13 +11,11 @@ function App() {
 
   return (
     <>
-      <div className="h-screen overflow-y-auto scrollbar-hide">
-        <BrowserRouter>
-          <Layout>
-            <AppRoutes />
-          </Layout>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Layout>
+          <AppRoutes />
+        </Layout>
+      </BrowserRouter>
     </>
   )
 }

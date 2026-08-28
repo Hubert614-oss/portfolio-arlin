@@ -1,16 +1,15 @@
-
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE et Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;             /* Chrome, Safari, Opera */
-  }
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
