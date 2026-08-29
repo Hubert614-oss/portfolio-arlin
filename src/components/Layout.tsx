@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
+import { SiDevbox } from "react-icons/si";
 
 import MenuDrawerMobile from '../components/MenuDrawerMobile'
 
@@ -91,51 +92,18 @@ const Layout = ({ children }: LayoutProps) => {
                 </div>
 
                 {/* Animated background particles */}
-                <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-                    {[...Array(20)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 bg-cyan/10 rounded-full"
-                            style={{
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                            }}
-                            animate={{
-                                y: [0, -30, 0],
-                                opacity: [0.3, 0.7, 0.3],
-                                scale: [1, 1.5, 1],
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 4,
-                                repeat: Infinity,
-                                delay: Math.random() * 2,
-                                ease: "easeInOut"
-                            }}
-                        />
-                    ))}
-                    {/* Gradient orbs */}
-                    <motion.div
-                        className="absolute -top-40 -right-40 w-96 h-96 bg-cyan/10 rounded-full blur-3xl"
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.5, 0.3],
-                        }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                        className="absolute -bottom-40 -left-40 w-96 h-96 bg-rose/10 rounded-full blur-3xl"
-                        animate={{
-                            scale: [1.2, 1, 1.2],
-                            opacity: [0.3, 0.5, 0.3],
-                        }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                </div>
+                
 
-                <div className={`h-16 fixed top-0 right-0  backdrop-blur-md bg-white/8 w-130 transition-all duration-300 ease-out ${showNav
-                    ? "translate-y-0 opacity-100"
-                    : "-translate-y-full opacity-0 pointer-events-none"
-                    } `}></div>
+                <div
+                    className={` fixed top-0 right-0 h-16 w-130 backdrop-blur-md bg-white/10 z-50
+                        [clip-path:polygon(80px_0,100%_0,100%_100%,0_100%,0_100px)]
+                        transition-all duration-300 ease-out
+                        ${showNav
+                            ? "translate-y-0 opacity-100"
+                            : "-translate-y-full opacity-0 pointer-events-none"
+                        }
+                    `}
+                ></div>
 
                 <nav
                     // className={`fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/8 transition-all duration-300 ease-out ${showNav
@@ -153,8 +121,8 @@ const Layout = ({ children }: LayoutProps) => {
                                 transition={{ duration: 0.6 }}
                                 className="text-2xl md:text-3xl font-bold text-white tracking-wider"
                             >
-                                <span className="inline-flex items-center gap-2 bg-linear-to-r from-cyan to-iris bg-clip-text text-transparent">
-                                    <span className="text-2xl md:text-3xl">{'</>'}</span>
+                                <span className="inline-flex items-center gap-2 bg-linear-to-r from-cyan to-iris bg-clip-text text-white">
+                                    <Link to="/" className="text-2xl md:text-3xl"><SiDevbox /></Link>
                                 </span>
                             </motion.div>
 

@@ -4,13 +4,9 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import {
 	IoClose,
 	IoHomeOutline,
-	IoPeopleOutline,
 	IoBriefcaseOutline,
 	IoConstructOutline,
-	IoLayersOutline,
-	IoGitNetworkOutline,
 	IoMailOutline,
-	IoInformationCircleOutline,
 } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 
@@ -21,12 +17,9 @@ interface MenuDrawerMobileProps {
 }
 
 const iconMap: Record<string, ReactNode> = {
-	About: <IoInformationCircleOutline size={22} />,
-	Clients: <IoPeopleOutline size={22} />,
-	Portfolio: <IoBriefcaseOutline size={22} />,
-	Services: <IoConstructOutline size={22} />,
-	Processus: <IoGitNetworkOutline size={22} />,
-	Team: <IoLayersOutline size={22} />,
+	Accueil: <IoHomeOutline size={22} />,
+	Projets: <IoBriefcaseOutline size={22} />,
+	Technos: <IoConstructOutline size={22} />,
 	Contact: <IoMailOutline size={22} />,
 }
 
@@ -170,10 +163,10 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 										Contact
 									</p>
 									<a
-										href="mailto:hello@victus.com"
+										href="mailto:hubertarlin1@gmail.com"
 										className="text-sm text-gray-300 hover:text-cyan transition-colors"
 									>
-										hello@victus.com
+										hubertarlin1@gmail.com
 									</a>
 								</motion.div>
 							</nav>
@@ -190,7 +183,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 									className="flex items-center justify-center gap-2 w-full py-3.5 px-6 text-gray-500 border border-gray-800 font-semibold rounded-xl shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300"
 								>
 									<IoMailOutline size={18} />
-									Nous contacter
+									Me contacter
 								</motion.a>
 								<p className="text-center text-xs text-gray-400 mt-3">
 									Reponse sous 24h

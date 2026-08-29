@@ -93,10 +93,18 @@ const Home = () => {
                     >
                         <motion.div
                             animate={floatingAnimation}
-                            className="relative w-full max-w-xs sm:max-w-sm md:max-w-md"
+                            className="relative w-full max-w-48 sm:max-w-sm md:max-w-md"
                         >
                             <div className="relative w-full aspect-square rounded-full p-0 flex items-center justify-center bg-linear-to-br from-cyan/20 to-iris/20 border-2 border-cyan/30 overflow-hidden">
                                 <img src={`https://res.cloudinary.com/duzwmu0rx/image/upload/v1787764768/arlin_webp_uuelci.webp`} alt="Arlin Hubert" className="w-full h-full object-cover" />
+                            </div>
+
+                            {/* Badge */}
+                            <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-nowrap text-white">
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-cyan/10 backdrop-blur-sm rounded-full border border-cyan/20 text-sm font-medium text-cyan">
+                                    <span className="w-2 h-2 bg-cyan rounded-full animate-pulse" />
+                                    Développeur Web Full Stack
+                                </span>
                             </div>
                         </motion.div>
 
@@ -109,13 +117,6 @@ const Home = () => {
                         animate={isLoaded ? "visible" : "hidden"}
                         className="text-white order-1 lg:order-2"
                     >
-                        {/* Badge */}
-                        <motion.div variants={itemVariants} className="mb-6 hidden md:block">
-                            <span className="inline-flex items-center gap-2 px-4 py-2 bg-cyan/10 backdrop-blur-sm rounded-full border border-cyan/20 text-sm font-medium text-cyan">
-                                <span className="w-2 h-2 bg-cyan rounded-full animate-pulse" />
-                                Développeur Web Full Stack
-                            </span>
-                        </motion.div>
 
                         {/* Welcome greeting */}
                         <motion.p
