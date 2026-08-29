@@ -310,6 +310,12 @@ const Contact = () => {
                                 />
                             </button>
 
+                            {success && (
+                                <p className="mt-4 text-sm text-emerald-400">
+                                    Message envoyé avec succès.
+                                </p>
+                            )}
+
                         </form>
                     </div>
 

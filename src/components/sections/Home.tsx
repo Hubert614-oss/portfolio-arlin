@@ -1,12 +1,12 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
 import { containerVariants, itemVariants, titleContainerVariants, titleLetterVariants, floatingAnimation } from '../../utils/animation';
 
-import { stats } from '../../utils/data';
+import { images, stats } from '../../utils/data';
 import { Link } from "react-router-dom";
 
-
+import { slideVariants } from '../../utils/animation';
 
 
 
@@ -16,9 +16,15 @@ const Home = () => {
     const statsRef = useRef<HTMLDivElement | null>(null)
     const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" })
 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-
-
+    // Auto-play slideshow
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length)
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [])
 
     useEffect(() => {
         setIsLoaded(true)
@@ -79,7 +85,22 @@ const Home = () => {
         )
     }
 
-    return (
+    return (<>
+        <div className="absolute inset-0 z-0">
+            <AnimatePresence initial={false} mode="wait">
+                <motion.img
+                    key={currentImageIndex}
+                    src={images[currentImageIndex]}
+                    alt="Header background"
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
+        </div>
         <div className="relative z-20 pt-24 pb-20 md:pt-20 md:pb-32">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -246,6 +267,7 @@ const Home = () => {
                 </motion.div>
             </div>
         </div>
+    </>
     )
 }
 

@@ -1,12 +1,10 @@
 
 import React, { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SiDevbox } from "react-icons/si";
 
 import MenuDrawerMobile from '../components/MenuDrawerMobile'
 
-import { images } from '../utils/data';
-import { slideVariants } from '../utils/animation';
 import { Link } from 'react-router-dom';
 
 
@@ -16,23 +14,12 @@ interface LayoutProps {
 
 
 const Layout = ({ children }: LayoutProps) => {
-
-    const [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [showNav, setShowNav] = useState(true)
     const lastScrollY = useRef(0)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const handleMenuToggle = () => setIsMenuOpen((prev) => !prev)
     const handleMenuClose = () => setIsMenuOpen(false)
 
-
-
-    // Auto-play slideshow
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length)
-        }, 5000)
-        return () => clearInterval(interval)
-    }, [])
 
     useEffect(() => {
         const scrollThreshold = 6
@@ -63,7 +50,8 @@ const Layout = ({ children }: LayoutProps) => {
     const navItems = [
         { label: 'Accueil', href: 'accueil', route: '/accueil' },
         { label: 'Projets', href: 'projets', route: '/projets' },
-        { label: 'Technos', href: 'technos', route: '/technos' },
+        { label: 'Compétences', href: 'competences', route: '/competences' },
+        { label: 'Expérience', href: 'experience', route: '/experience' },
         { label: 'Contact', href: 'contact', route: '/contact' },
     ]
 
@@ -73,29 +61,9 @@ const Layout = ({ children }: LayoutProps) => {
             {/* Navigation Bar */}
             <div id="accueil" className="relative overflow-hidden bg-black min-h-screen">
 
-
-                {/* Header background slideshow */}
-                <div className="absolute inset-0 z-0">
-                    <AnimatePresence initial={false} mode="wait">
-                        <motion.img
-                            key={currentImageIndex}
-                            src={images[currentImageIndex]}
-                            alt="Header background"
-                            variants={slideVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            className="absolute inset-0 w-full h-full object-cover"
-                        />
-                    </AnimatePresence>
-                    <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
-                </div>
-
                 {/* Animated background particles */}
-                
-
                 <div
-                    className={` fixed top-0 right-0 h-16 w-130 backdrop-blur-md bg-white/10 z-50
+                    className={` fixed top-0 right-0 h-16 w-170 backdrop-blur-md bg-white/10 z-50
                         [clip-path:polygon(80px_0,100%_0,100%_100%,0_100%,0_100px)]
                         transition-all duration-300 ease-out
                         ${showNav
@@ -182,7 +150,7 @@ const Layout = ({ children }: LayoutProps) => {
                     </div>
                 </nav>
 
-                <main className='border border-red-600 overflow-auto scrollbar-hide'>
+                <main>
                     {children}
                 </main>
 
