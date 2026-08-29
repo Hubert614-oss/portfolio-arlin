@@ -48,7 +48,7 @@ const Layout = ({ children }: LayoutProps) => {
 
 
     const navItems = [
-        { label: 'Accueil', href: 'accueil', route: '/accueil' },
+        { label: 'Accueil', href: '/', route: '/' },
         { label: 'Projets', href: 'projets', route: '/projets' },
         { label: 'Compétences', href: 'competences', route: '/competences' },
         { label: 'Expérience', href: 'experience', route: '/experience' },
@@ -106,7 +106,7 @@ const Layout = ({ children }: LayoutProps) => {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <Link to={item.href}
+                                        <Link to={item.route}
                                             className="relative px-4 py-2 text-slate-200 hover:text-white font-medium transition-all duration-300 group cursor-pointer"
                                         >
                                             {item.label}

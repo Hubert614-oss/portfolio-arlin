@@ -7,6 +7,7 @@ import {
 	IoBriefcaseOutline,
 	IoConstructOutline,
 	IoMailOutline,
+	IoTimeOutline,
 } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 
@@ -19,7 +20,8 @@ interface MenuDrawerMobileProps {
 const iconMap: Record<string, ReactNode> = {
 	Accueil: <IoHomeOutline size={22} />,
 	Projets: <IoBriefcaseOutline size={22} />,
-	Technos: <IoConstructOutline size={22} />,
+	Compétences: <IoConstructOutline size={22} />,
+	Expérience: <IoTimeOutline size={22} />,
 	Contact: <IoMailOutline size={22} />,
 }
 
