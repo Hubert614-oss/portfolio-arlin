@@ -6,6 +6,8 @@ import {
     MapPin,
     Sparkles,
 } from 'lucide-react';
+import { useThemeStore } from '../../stores/themeStore';
+import AnimatedBackground from '../AnimatedBackground';
 
 // ============================================================
 // UTILITAIRE
@@ -203,10 +205,10 @@ const ExperienceCard = React.memo(function ExperienceCard({
             <div className="absolute left-3.25 top-8 z-10 md:left-1/2 md:-translate-x-1/2">
                 <div
                     className={cn(
-                        'flex h-4 w-4 items-center justify-center rounded-full border-4 border-slate-950 transition-all duration-300',
+                        'flex h-4 w-4 items-center justify-center rounded-full border-4 border-white bg-slate-100 transition-all duration-300 dark:border-slate-950 dark:bg-slate-800',
                         item.current
                             ? 'bg-cyan-400 shadow-lg shadow-cyan-400/40 scale-110'
-                            : 'bg-slate-500'
+                            : 'bg-slate-400 dark:bg-slate-500'
                     )}
                     aria-hidden="true"
                 >
@@ -225,10 +227,10 @@ const ExperienceCard = React.memo(function ExperienceCard({
             >
                 <article
                     className={cn(
-                        'group relative overflow-hidden rounded-3xl border p-6 backdrop-blur-md transition-all duration-500',
+                        'group relative overflow-hidden rounded-3xl border bg-white/80 p-6 backdrop-blur-md transition-all duration-500 dark:bg-slate-900/70',
                         item.current
-                            ? 'border-cyan-400/30 bg-cyan-950/20 shadow-xl shadow-cyan-500/5'
-                            : 'border-white/10 bg-slate-900/60',
+                            ? 'border-cyan-400/30 shadow-xl shadow-cyan-500/10 dark:bg-cyan-950/20'
+                            : 'border-slate-200 shadow-sm shadow-slate-200/40 dark:border-white/10 dark:shadow-none',
                         'hover:-translate-y-1 hover:border-cyan-400/30 hover:shadow-2xl hover:shadow-cyan-500/10'
                     )}
                 >
@@ -251,7 +253,7 @@ const ExperienceCard = React.memo(function ExperienceCard({
                         <div className="mb-4 flex flex-wrap items-center gap-3">
                             <time
                                 dateTime={item.period}
-                                className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-300"
+                                className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-700 dark:text-cyan-300"
                             >
                                 <CalendarRange size={14} aria-hidden="true" />
                                 {item.period}
@@ -259,33 +261,33 @@ const ExperienceCard = React.memo(function ExperienceCard({
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-xl font-bold leading-tight text-white sm:text-2xl">
+                        <h3 className="text-xl font-bold leading-tight text-slate-900 sm:text-2xl dark:text-white">
                             {item.title}
                         </h3>
 
                         {/* Company */}
-                        <p className="mt-2 text-base font-semibold text-cyan-300">
+                        <p className="mt-2 text-base font-semibold text-cyan-700 dark:text-cyan-300">
                             {item.company}
                         </p>
 
                         {/* Location */}
-                        <div className="mt-3 flex items-center gap-2 text-sm text-slate-500">
+                        <div className="mt-3 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                             <MapPin size={14} aria-hidden="true" />
                             <span>{item.location}</span>
                         </div>
 
                         {/* Description */}
-                        <p className="mt-5 text-sm leading-7 text-slate-300">
+                        <p className="mt-5 text-sm leading-7 text-slate-600 dark:text-slate-300">
                             {item.description}
                         </p>
 
                         {/* Missions */}
                         {item.missions.length > 0 && (
                             <div className="mt-6">
-                                <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-200">
+                                <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                                     <Sparkles
                                         size={15}
-                                        className="text-cyan-400"
+                                        className="text-cyan-500 dark:text-cyan-400"
                                         aria-hidden="true"
                                     />
                                     Missions principales
@@ -294,11 +296,11 @@ const ExperienceCard = React.memo(function ExperienceCard({
                                     {item.missions.map((mission, mIdx) => (
                                         <li
                                             key={`${item.company}-mission-${mIdx}`}
-                                            className="flex gap-2.5 text-sm leading-6 text-slate-400"
+                                            className="flex gap-2.5 text-sm leading-6 text-slate-600 dark:text-slate-400"
                                         >
                                             <CheckCircle2
                                                 size={15}
-                                                className="mt-1 shrink-0 text-cyan-500"
+                                                className="mt-1 shrink-0 text-cyan-600 dark:text-cyan-500"
                                                 aria-hidden="true"
                                             />
                                             <span>{mission}</span>
@@ -310,15 +312,15 @@ const ExperienceCard = React.memo(function ExperienceCard({
 
                         {/* Stack */}
                         {item.stack.length > 0 && (
-                            <div className="mt-6 border-t border-slate-800 pt-5">
-                                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <div className="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
+                                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Technologies
                                 </p>
                                 <ul className="flex flex-wrap gap-2" role="list">
                                     {item.stack.map((tech, tIdx) => (
                                         <li
                                             key={`${item.company}-tech-${tIdx}`}
-                                            className="rounded-full border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-300 transition-colors duration-300 group-hover:border-slate-600 group-hover:text-cyan-300"
+                                            className="rounded-full border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-300 group-hover:border-slate-300 group-hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:group-hover:border-slate-600 dark:group-hover:text-cyan-300"
                                         >
                                             {tech}
                                         </li>
@@ -339,92 +341,97 @@ const ExperienceCard = React.memo(function ExperienceCard({
 const Experience = () => {
     const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>();
 
+    const { theme } = useThemeStore();
+
     return (
-        <section
-            id="experience"
-            className="relative overflow-hidden px-6 py-24 text-white"
-            aria-labelledby="experience-heading"
-        >
-            {/* Background glows */}
-            <div
-                className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl"
-                aria-hidden="true"
-            />
-            <div
-                className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full bg-blue-600/5 blur-3xl"
-                aria-hidden="true"
-            />
 
-            <div className="relative mx-auto max-w-6xl">
-                {/* Header */}
+        <AnimatedBackground variant={theme} showGrid showOrbs showDots>
+            <section
+                id="experience"
+                className="relative overflow-hidden px-6 py-24 text-slate-900 dark:text-white"
+                aria-labelledby="experience-heading"
+            >
+                {/* Background glows */}
                 <div
-                    ref={headerRef}
-                    className={cn(
-                        'mx-auto mb-20 max-w-3xl text-center md:text-left transition-all duration-700 ease-out',
-                        headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                    )}
-                >
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-400">
-                        <BriefcaseBusiness size={16} aria-hidden="true" />
-                        <span>Expérience</span>
-                    </div>
+                    className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full"
+                    aria-hidden="true"
+                />
+                <div
+                    className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full bg-blue-600/5 blur-3xl dark:bg-blue-500/10"
+                    aria-hidden="true"
+                />
 
-                    <h2
-                        id="experience-heading"
-                        className="text-4xl font-bold tracking-tight sm:text-5xl"
+                <div className="relative mx-auto max-w-6xl">
+                    {/* Header */}
+                    <div
+                        ref={headerRef}
+                        className={cn(
+                            'mx-auto mb-20 max-w-3xl text-center md:text-left transition-all duration-700 ease-out',
+                            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                        )}
                     >
-                        Mon parcours{' '}
-                        <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                            professionnel
-                        </span>
-                    </h2>
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-700 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-400">
+                            <BriefcaseBusiness size={16} aria-hidden="true" />
+                            <span>Expérience</span>
+                        </div>
 
-                    <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">
-                        Un parcours construit autour du développement web, du
-                        développement Full Stack et de la conception de solutions
-                        logicielles modernes.
-                    </p>
-                </div>
+                        <h2
+                            id="experience-heading"
+                            className="text-4xl font-bold tracking-tight sm:text-5xl text-slate-900 dark:text-white"
+                        >
+                            Mon parcours{' '}
+                            <span className="bg-linear-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">
+                                professionnel
+                            </span>
+                        </h2>
 
-                {/* Timeline */}
-                <div className="relative" role="list" aria-label="Parcours professionnel">
-                    {/* Desktop line */}
-                    <div
-                        className="absolute left-5 top-0 hidden h-full w-px bg-linear-to-b from-cyan-400 via-slate-700 to-transparent md:left-1/2 md:block"
-                        aria-hidden="true"
-                    />
-                    {/* Mobile line */}
-                    <div
-                        className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-cyan-400 via-slate-700 to-transparent md:hidden"
-                        aria-hidden="true"
-                    />
-
-                    <div className="space-y-12">
-                        {experiences.map((item, index) => (
-                            <ExperienceCard
-                                key={`${item.company}-${item.period}`}
-                                item={item}
-                                index={index}
-                                isLeft={index % 2 === 0}
-                            />
-                        ))}
+                        <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-400">
+                            Un parcours construit autour du développement web, du
+                            développement Full Stack et de la conception de solutions
+                            logicielles modernes.
+                        </p>
                     </div>
-                </div>
 
-                {/* Footer */}
-                <div className="mt-16 text-center">
-                    <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-5 py-2.5 text-sm text-slate-400 backdrop-blur">
-                        <Sparkles
-                            size={15}
-                            className="text-cyan-400"
+                    {/* Timeline */}
+                    <div className="relative" role="list" aria-label="Parcours professionnel">
+                        {/* Desktop line */}
+                        <div
+                            className="absolute left-5 top-0 hidden h-full w-px bg-linear-to-b from-cyan-400 via-slate-700 to-transparent md:left-1/2 md:block"
                             aria-hidden="true"
                         />
-                        Toujours en apprentissage et à la recherche de nouveaux
-                        défis
+                        {/* Mobile line */}
+                        <div
+                            className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-cyan-400 via-slate-700 to-transparent md:hidden"
+                            aria-hidden="true"
+                        />
+
+                        <div className="space-y-12">
+                            {experiences.map((item, index) => (
+                                <ExperienceCard
+                                    key={`${item.company}-${item.period}`}
+                                    item={item}
+                                    index={index}
+                                    isLeft={index % 2 === 0}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="mt-16 text-center">
+                        <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-5 py-2.5 text-sm text-slate-600 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400">
+                            <Sparkles
+                                size={15}
+                                className="text-cyan-500 dark:text-cyan-400"
+                                aria-hidden="true"
+                            />
+                            Toujours en apprentissage et à la recherche de nouveaux
+                            défis
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </AnimatedBackground>
     );
 };
 

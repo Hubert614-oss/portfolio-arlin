@@ -61,11 +61,11 @@ const Layout = ({ children }: LayoutProps) => {
     return (
         <>
             {/* Navigation Bar */}
-            <div id="accueil" className="relative overflow-hidden bg-black min-h-screen">
+            <div id="accueil" className="relative overflow-hidden bg-slate-50 text-slate-900 transition-colors duration-300 min-h-screen dark:bg-slate-950 dark:text-slate-50">
 
                 {/* Animated background particles */}
                 <div
-                    className={` fixed top-0 right-0 h-16 w-170 backdrop-blur-md bg-white/10 z-50
+                    className={` fixed top-0 right-0 h-16 w-170 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 z-50
                         [clip-path:polygon(80px_0,100%_0,100%_100%,0_100%,0_100px)]
                         transition-all duration-300 ease-out
                         ${showNav
@@ -76,7 +76,6 @@ const Layout = ({ children }: LayoutProps) => {
                 ></div>
 
                 <nav
-                    // className={`fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/8 transition-all duration-300 ease-out ${showNav
                     className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-out ${showNav
                         ? "translate-y-0 opacity-100"
                         : "-translate-y-full opacity-0 pointer-events-none"
@@ -89,10 +88,10 @@ const Layout = ({ children }: LayoutProps) => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}
-                                className="text-2xl md:text-3xl font-bold text-white tracking-wider"
+                                className="text-2xl md:text-3xl font-bold tracking-wider text-slate-900 dark:text-white"
                             >
-                                <span className="inline-flex items-center gap-2 bg-linear-to-r from-cyan to-iris bg-clip-text text-white">
-                                    <Link to="/" className="text-2xl md:text-3xl"><SiDevbox /></Link>
+                                <span className="inline-flex items-center gap-2 bg-linear-to-r from-cyan-500 to-indigo-500 bg-clip-text text-transparent dark:from-cyan-400 dark:to-indigo-400">
+                                    <Link to="/" className="text-2xl md:text-3xl text-slate-300 dark:text-white"><SiDevbox /></Link>
                                 </span>
                             </motion.div>
 
@@ -117,20 +116,20 @@ const Layout = ({ children }: LayoutProps) => {
                                             className="relative"
                                         >
                                             <Link to={item.route}
-                                                className={`relative block px-4 py-2 font-medium transition-all duration-300 group cursor-pointer ${isActive ? 'text-white' : 'text-slate-200 hover:text-white'}`}
+                                                className={`relative block px-4 py-2 font-medium transition-all duration-300 group cursor-pointer ${isActive ? 'text-slate-900 dark:text-white' : 'text-slate-900 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'}`}
                                             >
                                                 {item.label}
 
                                                 {isActive && (
                                                     <motion.span
                                                         layoutId="nav-indicator"
-                                                        className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-cyan-400 shadow-[0_0_16px_rgba(34,211,238,0.8)]"
+                                                        className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-cyan-500 shadow-[0_0_16px_rgba(34,211,238,0.8)] dark:bg-cyan-400"
                                                         transition={{ type: 'spring', stiffness: 260, damping: 24 }}
                                                     />
                                                 )}
 
                                                 {!isActive && (
-                                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-cyan group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-cyan-500 dark:bg-cyan-400 group-hover:w-3/4 transition-all duration-300 rounded-full" />
                                                 )}
                                             </Link>
                                         </motion.li>
@@ -146,7 +145,7 @@ const Layout = ({ children }: LayoutProps) => {
                             >
                                 <button
                                     onClick={handleMenuToggle}
-                                    className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors text-white"
+                                    className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors text-slate-900 dark:text-white"
                                     aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
                                     aria-expanded={isMenuOpen}
                                 >
