@@ -5,7 +5,8 @@ import { SiDevbox } from "react-icons/si";
 
 import MenuDrawerMobile from '../components/MenuDrawerMobile'
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { ToggleTheme } from './ToggleTheme';
 
 
 interface LayoutProps {
@@ -17,6 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
     const [showNav, setShowNav] = useState(true)
     const lastScrollY = useRef(0)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const location = useLocation()
     const handleMenuToggle = () => setIsMenuOpen((prev) => !prev)
     const handleMenuClose = () => setIsMenuOpen(false)
 
@@ -98,22 +100,42 @@ const Layout = ({ children }: LayoutProps) => {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
-                                className="hidden md:flex gap-1 ml-auto"
+                                className="hidden md:flex gap-1 ml-auto md:items-center"
                             >
-                                {navItems.map((item) => (
-                                    <motion.li
-                                        key={item.label}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
-                                        <Link to={item.route}
-                                            className="relative px-4 py-2 text-slate-200 hover:text-white font-medium transition-all duration-300 group cursor-pointer"
+                                <span>
+                                    <ToggleTheme />
+                                </span>
+
+                                {navItems.map((item) => {
+                                    const isActive = item.route === location.pathname || (item.route === '/' && (location.pathname === '/' || location.pathname === '/accueil'));
+
+                                    return (
+                                        <motion.li
+                                            key={item.label}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="relative"
                                         >
-                                            {item.label}
-                                            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-cyan group-hover:w-3/4 transition-all duration-300 rounded-full" />
-                                        </Link>
-                                    </motion.li>
-                                ))}
+                                            <Link to={item.route}
+                                                className={`relative block px-4 py-2 font-medium transition-all duration-300 group cursor-pointer ${isActive ? 'text-white' : 'text-slate-200 hover:text-white'}`}
+                                            >
+                                                {item.label}
+
+                                                {isActive && (
+                                                    <motion.span
+                                                        layoutId="nav-indicator"
+                                                        className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-cyan-400 shadow-[0_0_16px_rgba(34,211,238,0.8)]"
+                                                        transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+                                                    />
+                                                )}
+
+                                                {!isActive && (
+                                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-cyan group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                                                )}
+                                            </Link>
+                                        </motion.li>
+                                    );
+                                })}
                             </motion.ul>
 
                             <motion.div
