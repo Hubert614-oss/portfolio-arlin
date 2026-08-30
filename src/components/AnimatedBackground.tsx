@@ -1,5 +1,5 @@
 // src/components/AnimatedBackground.tsx
-import React, { useMemo, useEffect, useRef, useCallback } from 'react';
+import React, { useMemo, useEffect, useRef, useCallback, useState } from 'react';
 import { useMouseGlow } from '../hooks/useMouseGlow';
 
 interface AnimatedBackgroundProps {
@@ -41,7 +41,25 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
   const mousePos = useRef({ x: -1000, y: -1000 });
   const rafId = useRef<number>(0);
 
-  const isDark = variant === 'dark';
+  const [prefersDark, setPrefersDark] = useState(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : false
+  );
+
+  useEffect(() => {
+    if (variant !== 'system') return;
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (event: MediaQueryListEvent) => setPrefersDark(event.matches);
+
+    setPrefersDark(media.matches);
+    media.addEventListener('change', handleChange);
+
+    return () => media.removeEventListener('change', handleChange);
+  }, [variant]);
+
+  const isDark = variant === 'dark' || (variant === 'system' && prefersDark);
 
   // === RÉSEAU DE NŒUDS (CANVAS) ===
   const initNetwork = useCallback((canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
