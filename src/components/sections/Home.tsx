@@ -40,27 +40,47 @@ const Home = () => {
         const isInView = useInView(counterRef, { once: true })
 
         useEffect(() => {
-            if (isInView) {
-                const timer = setTimeout(() => {
-                    let start = 0
-                    const end = value
-                    const duration = 2000
-                    const increment = end / (duration / 16)
+            if (!isInView) return
 
-                    const counter = setInterval(() => {
-                        start += increment
-                        if (start >= end) {
-                            setCount(end)
-                            clearInterval(counter)
-                        } else {
-                            setCount(Math.floor(start))
-                        }
-                    }, 16)
+            let counterInterval: ReturnType<typeof setInterval> | undefined
+            let repeatInterval: ReturnType<typeof setInterval> | undefined
+            let startTimer: ReturnType<typeof setTimeout> | undefined
 
-                    return () => clearInterval(counter)
-                }, delay * 200)
+            const animateCounter = () => {
+                if (counterInterval) {
+                    clearInterval(counterInterval)
+                }
 
-                return () => clearTimeout(timer)
+                setCount(0)
+
+                let start = 0
+                const end = value
+                const duration = 2000
+                const increment = end / (duration / 16)
+
+                counterInterval = setInterval(() => {
+                    start += increment
+                    if (start >= end) {
+                        setCount(end)
+                        clearInterval(counterInterval)
+                        counterInterval = undefined
+                    } else {
+                        setCount(Math.floor(start))
+                    }
+                }, 16)
+            }
+
+            startTimer = setTimeout(() => {
+                animateCounter()
+                repeatInterval = setInterval(() => {
+                    animateCounter()
+                }, 4000)
+            }, delay * 200)
+
+            return () => {
+                if (startTimer) clearTimeout(startTimer)
+                if (repeatInterval) clearInterval(repeatInterval)
+                if (counterInterval) clearInterval(counterInterval)
             }
         }, [isInView, value, delay])
 
