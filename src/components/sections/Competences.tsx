@@ -114,7 +114,7 @@ function ProgressBar({ percent, color }: { percent: number; color: string }) {
 function TechCard({ tech }: { tech: TechnologyItem }) {
     const Icon = tech.icon;
     return (
-        <div className="group flex items-center gap-3 rounded-xl border border-transparent bg-slate-100/60 p-2.5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-slate-200/60 dark:bg-white/[0.03] dark:hover:border-cyan-400/20 dark:hover:bg-white/[0.06]">
+        <div className="group flex items-center gap-3 rounded-xl border border-transparent bg-slate-100/60 p-2.5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-slate-200/60 dark:bg-white/3 dark:hover:border-cyan-400/20 dark:hover:bg-white/6">
             {/* Icône */}
             <div
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/80"
@@ -204,7 +204,7 @@ const Competences = () => {
 
                         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
                             Les technologies que{" "}
-                            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">
+                            <span className="bg-linear-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">
                                 j'utilise
                             </span>
                         </h2>

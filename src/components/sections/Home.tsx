@@ -26,7 +26,6 @@ const Home = () => {
         setIsLoaded(true)
     }, [])
 
-
     // Animated counter component
     type AnimatedCounterProps = {
         value: number
@@ -188,12 +187,12 @@ const Home = () => {
                                 {/* CTA Buttons */}
                                 <motion.div
                                     variants={itemVariants}
-                                    className="flex flex-row flex-wrap gap-4"
+                                    className="flex flex-row flex-wrap gap-2 sm:gap-4"
                                 >
                                     <Link to="/projets"
-                                        className="group relative px-6 py-3.5 text-sm font-bold bg-slate-900 text-white rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-slate-900/20 text-center sm:px-8 sm:py-4 sm:text-base dark:bg-slate-800 border border-slate-700/50 dark:border-slate-600/50 dark:text-white dark:hover:bg-slate-700/30 dark:hover:border-slate-500/50"
+                                        className="group relative px-3 py-2.5 text-[11px] font-bold bg-slate-900 text-white rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-slate-900/20 text-center sm:px-8 sm:py-4 sm:text-base dark:bg-slate-800 border border-slate-700/50 dark:border-slate-600/50 dark:text-white dark:hover:bg-slate-700/30 dark:hover:border-slate-500/50"
                                     >
-                                        <span className="relative z-10 flex items-center justify-center gap-2">
+                                        <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
                                             Voir mes projets
                                             <motion.span
                                                 animate={{ x: [0, 5, 0] }}
@@ -206,9 +205,9 @@ const Home = () => {
                                     </Link>
 
                                     <Link to="/contact"
-                                        className="group px-6 py-3.5 text-sm font-bold bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all duration-300 backdrop-blur-sm text-center sm:px-8 sm:py-4 sm:text-base dark:bg-transparent dark:border-white/20 dark:text-white dark:hover:bg-white/5 dark:hover:border-white/30"
+                                        className="group px-3 py-2.5 text-[11px] font-bold bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all duration-300 backdrop-blur-sm text-center sm:px-8 sm:py-4 sm:text-base dark:bg-transparent dark:border-white/20 dark:text-white dark:hover:bg-white/5 dark:hover:border-white/30"
                                     >
-                                        <span className="flex items-center justify-center gap-2">
+                                        <span className="flex items-center justify-center gap-1.5 sm:gap-2">
                                             Me contacter
                                             <motion.span
                                                 className="inline-block"
@@ -223,18 +222,18 @@ const Home = () => {
                                     <a
                                         href={cvFile}
                                         download="CV-Arlin-Hubert.pdf"
-                                        className="group inline-flex items-center justify-center gap-3 rounded-xl border border-cyan-200 bg-cyan-50 px-3 py-2.5 text-xs font-bold text-cyan-700 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-100 hover:text-cyan-800 sm:text-sm sm:px-4 sm:py-3 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:border-cyan-300 dark:hover:bg-cyan-500/20 dark:hover:text-white"
+                                        className="group inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-200 bg-cyan-50 px-2.5 py-2 text-[10px] font-bold text-cyan-700 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-100 hover:text-cyan-800 sm:gap-3 sm:text-sm sm:px-4 sm:py-3 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:border-cyan-300 dark:hover:bg-cyan-500/20 dark:hover:text-white"
                                     >
                                         <img
                                             src={cvPreview}
                                             alt="Aperçu du CV"
-                                            className="h-8 w-8 rounded-full object-cover border border-cyan-400/60 shadow-lg shadow-cyan-500/20 sm:h-10 sm:w-10 dark:border-cyan-300/60"
+                                            className="h-7 w-7 rounded-full object-cover border border-cyan-400/60 shadow-lg shadow-cyan-500/20 sm:h-10 sm:w-10 dark:border-cyan-300/60"
                                         />
                                         <span>Mon CV</span>
                                         <motion.span
                                             animate={{ y: [0, 2, 0] }}
                                             transition={{ duration: 1.5, repeat: Infinity }}
-                                            className="text-sm"
+                                            className="text-xs sm:text-sm"
                                         >
                                             ↓
                                         </motion.span>

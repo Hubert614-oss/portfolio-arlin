@@ -65,7 +65,7 @@ const Layout = ({ children }: LayoutProps) => {
 
                 {/* Animated background particles */}
                 <div
-                    className={` fixed top-0 right-0 h-16 w-170 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 z-50
+                    className={` fixed top-0 right-0 h-16 w-180 backdrop-blur-md bg-slate-100 dark:bg-slate-800/70 z-50
                         [clip-path:polygon(80px_0,100%_0,100%_100%,0_100%,0_100px)]
                         transition-all duration-300 ease-out
                         ${showNav
@@ -91,7 +91,7 @@ const Layout = ({ children }: LayoutProps) => {
                                 className="text-2xl md:text-3xl font-bold tracking-wider text-slate-900 dark:text-white"
                             >
                                 <span className="inline-flex items-center gap-2 bg-linear-to-r from-cyan-500 to-indigo-500 bg-clip-text text-transparent dark:from-cyan-400 dark:to-indigo-400">
-                                    <Link to="/" className="text-2xl md:text-3xl text-slate-300 dark:text-white"><SiDevbox /></Link>
+                                    <Link to="/" className="text-2xl md:text-3xl text-slate-700 dark:text-white"><SiDevbox /></Link>
                                 </span>
                             </motion.div>
 
@@ -141,8 +141,11 @@ const Layout = ({ children }: LayoutProps) => {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}
-                                className="ml-auto md:ml-6"
+                                className="ml-auto md:ml-6 flex items-center gap-2"
                             >
+                                <span className="md:hidden block">
+                                    <ToggleTheme />
+                                </span>
                                 <button
                                     onClick={handleMenuToggle}
                                     className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors text-slate-900 dark:text-white"

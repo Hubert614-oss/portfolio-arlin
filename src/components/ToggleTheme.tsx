@@ -10,11 +10,11 @@ const themeIcons: Record<Theme, React.ReactNode> = {
     system: <Monitor className="w-5 h-5" />,
 };
 
-const themeLabels: Record<Theme, string> = {
-    light: "Light",
-    dark: "Dark",
-    system: "System",
-};
+// const themeLabels: Record<Theme, string> = {
+//     light: "Light",
+//     dark: "Dark",
+//     system: "System",
+// };
 
 export function ToggleTheme() {
     const { theme, setTheme } = useThemeStore();
@@ -44,7 +44,7 @@ export function ToggleTheme() {
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+                <div className="absolute flex right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 z-50">
                     {themes.map((t) => (
                         <button
                             key={t}
@@ -52,13 +52,11 @@ export function ToggleTheme() {
                                 setTheme(t);
                                 setIsOpen(false);
                             }}
-                            className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm font-medium transition-colors ${theme === t
-                                ? "bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100"
-                                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                                }`}
+                            className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm font-medium rounded-full transition-colors `}
                         >
-                            {themeIcons[t]}
-                            <span>{themeLabels[t]}</span>
+                            <span className={`flex items-center justify-center w-5 h-5 ${theme === t ? "text-blue-500 animate-pulse" : "text-gray-500"}`}>
+                                {themeIcons[t]}
+                            </span>
                         </button>
                     ))}
                 </div>
