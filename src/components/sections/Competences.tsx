@@ -6,6 +6,7 @@ import {
     SiHtml5, SiRedis, SiDocker, SiMysql, SiPostgresql,
     SiSocketdotio, SiSpringboot, SiGit, SiGitlab, SiGithub,
 } from 'react-icons/si';
+
 import { ZustandIcon } from "../ZustandIcon";
 import { useThemeStore } from "../../stores/themeStore";
 import AnimatedBackground from "../AnimatedBackground";
@@ -71,6 +72,16 @@ const technologyGroups: TechnologyGroup[] = [
             { name: 'GitLab', icon: SiGitlab, color: '#FC6D26', percent: 78 },
         ],
     },
+];
+
+
+
+
+const techItems = [
+    { name: 'React.js', icon: SiReact, slogan: 'UI Interactive', hoverColor: 'group-hover:text-[#61DAFB]', glowColor: '#61DAFB' },
+    { name: 'Nest.js', icon: SiNestjs, slogan: 'Scalable Node', hoverColor: 'group-hover:text-[#E0234E]', glowColor: '#E0234E' },
+    { name: 'Next.js', icon: SiNextdotjs, slogan: 'React Framework', hoverColor: 'group-hover:text-black dark:group-hover:text-white', glowColor: '#ffffff' },
+    { name: 'Node.js', icon: SiNodedotjs, slogan: 'Backend JS', hoverColor: 'group-hover:text-[#339933]', glowColor: '#339933' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -184,6 +195,7 @@ function GroupCard({ group, index }: { group: TechnologyGroup; index: number }) 
 
 const Competences = () => {
     const { theme } = useThemeStore();
+    const [activeTech, setActiveTech] = useState<string | null>(null);
 
     return (
         <AnimatedBackground variant={theme} showGrid showOrbs showDots>
@@ -214,9 +226,350 @@ const Competences = () => {
                             des applications web performantes, scalables et maintenables.
                         </p>
                     </div>
+                    <fieldset
+                        className="
+                            relative mt-12 rounded-3xl
+                            border border-slate-200
+                            bg-slate-50/80
+                            px-4 pb-6 pt-2
+                            shadow-xl shadow-slate-200/50
+                            backdrop-blur-sm
+
+                            dark:border-white/10
+                            dark:bg-white/[0.02]
+                            dark:shadow-2xl dark:shadow-black/10
+
+                            sm:px-6 sm:pb-8
+                            lg:px-8
+                        "
+                    >
+                        {/* Legend */}
+                        <legend className="px-4">
+                            <div className="flex items-center gap-3">
+
+                                {/* Point */}
+                                <span className="relative flex h-3 w-3">
+                                    <span
+                                        className="
+                                            absolute inline-flex h-full w-full
+                                            animate-ping rounded-full
+                                            bg-cyan-500 opacity-40
+                                            dark:bg-cyan-400
+                                        "
+                                    />
+
+                                    <span
+                                        className="
+                                            relative inline-flex h-3 w-3
+                                            rounded-full
+                                            bg-cyan-600
+                                            shadow-lg shadow-cyan-500/40
+
+                                            dark:bg-cyan-400
+                                            dark:shadow-cyan-400/50
+                                        "
+                                    />
+                                </span>
+
+                                {/* Title */}
+                                <span
+                                    className="
+                                        text-xl font-bold tracking-tight
+                                        text-slate-800
+                                        sm:text-2xl
+
+                                        dark:text-white
+                                    "
+                                >
+                                    Technologies
+                                </span>
+
+                                {/* Line */}
+                                <span
+                                    className="
+                                        hidden h-px w-12
+                                        bg-linear-to-r
+                                        from-cyan-500/70
+                                        to-transparent
+
+                                        sm:block
+
+                                        dark:from-cyan-400/60
+                                    "
+                                />
+                            </div>
+                        </legend>
+
+                        {/* Description */}
+                        <div className="mb-8 mt-4 text-left">
+                            <p
+                                className="
+                                    max-w-3xl
+                                    text-base leading-relaxed
+                                    text-slate-600
+                                    sm:text-lg
+
+                                    dark:text-slate-400
+                                "
+                            >
+                                Les technologies que j’utilise actuellement dans mon poste
+                                chez{" "}
+                                <span
+                                    className="
+                                        font-semibold
+                                        text-slate-800
+
+                                        dark:text-slate-200
+                                    "
+                                >
+                                    VICTUS SA
+                                </span>
+                                .
+                            </p>
+                        </div>
+
+                        {/* Technologies */}
+                        <div
+                            className="
+                                relative z-20
+                                grid grid-cols-2 gap-3
+                                sm:grid-cols-3 sm:gap-4
+                                md:grid-cols-4
+                                lg:grid-cols-8 lg:gap-5
+                            "
+                        >
+                            {techItems.map((tech, index) => {
+                                const Icon = tech.icon;
+                                const isActive = activeTech === tech.name;
+
+                                return (
+                                    <div
+                                        key={`static-${tech.name}-${index}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setActiveTech(
+                                                isActive ? null : tech.name
+                                            );
+                                        }}
+                                        className={`
+                                            group relative cursor-pointer
+                                            overflow-hidden rounded-2xl
+                                            border p-5
+
+                                            transition-all duration-500 ease-out
+
+                                            ${isActive
+                                                ? `
+                                                        -translate-y-1
+                                                        scale-[1.03]
+
+                                                        border-cyan-300
+                                                        bg-white
+                                                        shadow-xl
+                                                        shadow-slate-300/40
+
+                                                        dark:border-white/20
+                                                        dark:bg-white/[0.07]
+                                                        dark:shadow-xl
+                                                    `
+                                                : `
+                                                        border-slate-200
+                                                        bg-white
+                                                        shadow-md
+                                                        shadow-slate-200/50
+
+                                                        hover:-translate-y-1
+                                                        hover:scale-[1.03]
+                                                        hover:border-slate-300
+                                                        hover:shadow-xl
+
+                                                        dark:border-white/[0.08]
+                                                        dark:bg-white/[0.025]
+                                                        dark:shadow-lg
+                                                        dark:shadow-black/10
+                                                        dark:hover:border-white/20
+                                                        dark:hover:bg-white/[0.05]
+                                                    `
+                                            }
+                                        `}
+                                        style={
+                                            {
+                                                "--glow-color": tech.glowColor,
+                                            } as React.CSSProperties
+                                        }
+                                    >
+
+                                        {/* Hover gradient */}
+                                        <div
+                                            className={`
+                                                absolute inset-0
+                                                rounded-2xl
+
+                                                bg-linear-to-br
+                                                from-slate-100/80
+                                                via-transparent
+                                                to-transparent
+
+                                                transition-opacity duration-500
+
+                                                dark:from-white/[0.08]
+
+                                                ${isActive
+                                                    ? "opacity-100"
+                                                    : "opacity-0 group-hover:opacity-100"
+                                                }
+                                            `}
+                                        />
+
+                                        {/* Glow */}
+                                        <div
+                                            className={`
+                                                pointer-events-none
+                                                absolute -right-8 -top-8
+                                                h-20 w-20
+                                                rounded-full
+                                                blur-3xl
+                                                transition-opacity duration-500
+
+                                                ${isActive
+                                                    ? "opacity-20"
+                                                    : "opacity-0 group-hover:opacity-20"
+                                                }
+                                            `}
+                                            style={{
+                                                backgroundColor: tech.glowColor,
+                                            }}
+                                        />
+
+                                        {/* Content */}
+                                        <div
+                                            className="
+                                                relative
+                                                flex flex-col
+                                                items-center
+                                                justify-center
+                                                gap-3
+                                            "
+                                        >
+                                            {/* Icon */}
+                                            <div
+                                                className={`
+                                                    text-3xl
+                                                    transition-all duration-500
+                                                    sm:text-4xl
+
+                                                    ${isActive
+                                                        ? "scale-110"
+                                                        : `
+                                                                text-slate-500
+                                                                group-hover:scale-110
+                                                                dark:text-gray-500
+                                                            `
+                                                    }
+
+                                                    ${tech.hoverColor}
+                                                `}
+                                                style={
+                                                    isActive
+                                                        ? { color: tech.glowColor }
+                                                        : undefined
+                                                }
+                                            >
+                                                <Icon className="transition-all duration-500" />
+                                            </div>
+
+                                            {/* Name + slogan */}
+                                            <div
+                                                className="
+                                                    flex flex-col
+                                                    items-center
+                                                    text-center
+                                                "
+                                            >
+                                                <span
+                                                    className={`
+                                                        text-xs font-bold
+                                                        transition-colors duration-300
+                                                        sm:text-sm
+
+                                                        ${isActive
+                                                            ? `
+                                                                    text-slate-900
+                                                                    dark:text-white
+                                                                `
+                                                            : `
+                                                                    text-slate-700
+                                                                    group-hover:text-slate-900
+
+                                                                    dark:text-gray-300
+                                                                    dark:group-hover:text-white
+                                                                `
+                                                        }
+                                                    `}
+                                                >
+                                                    {tech.name}
+                                                </span>
+
+                                                <span
+                                                    className={`
+                                                        mt-1 text-[9px]
+                                                        uppercase tracking-[0.12em]
+                                                        transition-colors duration-300
+                                                        sm:text-[10px]
+
+                                                        ${isActive
+                                                            ? `
+                                                                    text-cyan-600
+                                                                    dark:text-cyan-300
+                                                                `
+                                                            : `
+                                                                    text-slate-500
+                                                                    group-hover:text-cyan-600
+
+                                                                    dark:text-gray-500
+                                                                    dark:group-hover:text-cyan-300
+                                                                `
+                                                        }
+                                                    `}
+                                                >
+                                                    {tech.slogan}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom active indicator */}
+                                        <div
+                                            className={`
+                                                absolute bottom-0 left-1/2
+                                                h-0.5
+                                                -translate-x-1/2
+                                                rounded-full
+                                                transition-all duration-500
+
+                                                ${isActive
+                                                    ? "w-10 opacity-100"
+                                                    : `
+                                                            w-0 opacity-0
+                                                            group-hover:w-6
+                                                            group-hover:opacity-70
+                                                        `
+                                                }
+                                            `}
+                                            style={{
+                                                backgroundColor: tech.glowColor,
+                                                boxShadow: `0 0 12px ${tech.glowColor}`,
+                                            }}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </fieldset>
+
+                    <div className="border-b-2 border-cyan-400/30 dark:border-cyan-300/40 mt-15 mb-15"></div>
 
                     {/* Grille */}
-                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {technologyGroups.map((group, i) => (
                             <GroupCard key={group.title} group={group} index={i} />
                         ))}
