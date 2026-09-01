@@ -54,28 +54,28 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 			x: 0,
 			transition: {
 				type: 'spring' as const,
-				stiffness: 360,
-				damping: 28,
-				staggerChildren: 0.03,
-				delayChildren: 0.03,
+				stiffness: 500,
+				damping: 40,
+				staggerChildren: 0.05,
+				delayChildren: 0.05,
 			},
 		},
 		exit: {
 			x: '-100%',
 			transition: {
 				type: 'spring' as const,
-				stiffness: 340,
-				damping: 30,
+				stiffness: 500,
+				damping: 40,
 			},
 		},
 	}
 
 	const itemVariants: Variants = {
-		hidden: { opacity: 0, x: -18 },
+		hidden: { opacity: 0, x: -30 },
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { type: 'spring' as const, stiffness: 380, damping: 28 },
+			transition: { type: 'spring' as const, stiffness: 500, damping: 35 },
 		},
 	}
 
@@ -90,7 +90,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 							initial="hidden"
 							animate="visible"
 							exit="exit"
-							transition={{ duration: 0.18, ease: 'easeOut' }}
+							transition={{ duration: 0.3 }}
 							onClick={onClose}
 							className="fixed inset-0 bg-black/40 backdrop-blur-sm z-60 md:hidden"
 							aria-hidden="true"
@@ -110,7 +110,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 								<motion.span
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
-									transition={{ delay: 0.08 }}
+									transition={{ delay: 0.2 }}
 									className="text-xl font-bold text-white"
 								>
 									Arlin Hubert
