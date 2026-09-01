@@ -92,7 +92,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 							exit="exit"
 							transition={{ duration: 0.3 }}
 							onClick={onClose}
-							className="fixed inset-0 bg-black/40 backdrop-blur-sm z-60 md:hidden"
+							className="fixed inset-0 z-60 bg-slate-900/30 backdrop-blur-sm dark:bg-black/40 md:hidden"
 							aria-hidden="true"
 						/>
 
@@ -101,17 +101,17 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 							initial="hidden"
 							animate="visible"
 							exit="exit"
-							className="fixed inset-y-0 left-0 h-dvh min-h-screen w-75 max-w-[85vw] bg-gray-950 z-70 md:hidden shadow-2xl flex flex-col pb-14"
+							className="fixed inset-y-0 left-0 z-70 flex h-dvh min-h-screen w-75 max-w-[85vw] flex-col bg-white pb-14 shadow-2xl shadow-slate-300/40 dark:bg-gray-950 dark:shadow-2xl dark:shadow-black/30 md:hidden"
 							role="dialog"
 							aria-modal="true"
 							aria-label="Menu de navigation"
 						>
-							<div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
+							<div className="flex items-center justify-between border-b border-slate-200 px-6 pb-4 pt-6 dark:border-white/10">
 								<motion.span
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
 									transition={{ delay: 0.2 }}
-									className="text-xl font-bold text-white"
+									className="text-xl font-bold text-slate-900 dark:text-white"
 								>
 									Arlin Hubert
 								</motion.span>
@@ -119,7 +119,7 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 									whileHover={{ scale: 1.1, rotate: 90 }}
 									whileTap={{ scale: 0.9 }}
 									onClick={onClose}
-									className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+									className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-slate-700 transition-colors hover:bg-slate-300 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
 									aria-label="Fermer le menu"
 								>
 									<IoClose size={20} />
@@ -135,16 +135,16 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 												onClick={() => {
 													onClose();
 												}}
-												className="group flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-200"
+												className="group flex items-center gap-4 rounded-xl px-4 py-3.5 text-slate-700 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900 dark:text-gray-200 dark:hover:bg-white/10 dark:hover:text-white"
 											>
-												<span className="text-cyan/70 group-hover:text-cyan transition-colors">
+												<span className="text-cyan-600 transition-colors group-hover:text-cyan-500 dark:text-cyan-400 dark:group-hover:text-cyan-300">
 													{iconMap[item.label] || <IoHomeOutline size={22} />}
 												</span>
 												<span className="text-base font-medium tracking-wide">
 													{item.label}
 												</span>
 												<motion.span
-													className="ml-auto opacity-0 group-hover:opacity-100 text-gray-400"
+													className="ml-auto text-slate-400 opacity-0 group-hover:opacity-100 dark:text-gray-400"
 													initial={false}
 													animate={{ x: isOpen === true ? 0 : -10 }}
 												>
@@ -157,16 +157,16 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 
 								<motion.div
 									variants={itemVariants}
-									className="mt-6 mx-4 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
+									className="mx-4 mt-6 h-px bg-linear-to-r from-transparent via-slate-300 to-transparent dark:via-white/15"
 								/>
 
 								<motion.div variants={itemVariants} className="mt-6 px-4">
-									<p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+									<p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
 										Contact
 									</p>
 									<a
 										href="mailto:hubertarlin1@gmail.com"
-										className="text-sm text-gray-300 hover:text-cyan transition-colors"
+										className="text-sm text-slate-700 transition-colors hover:text-cyan-600 dark:text-gray-300 dark:hover:text-cyan"
 									>
 										hubertarlin1@gmail.com
 									</a>
@@ -175,19 +175,19 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 
 							<motion.div
 								variants={itemVariants}
-								className="p-4 border-t border-white/10 bg-white/5"
+								className="border-t border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/5"
 							>
 								<motion.a
 									href="#contact"
 									onClick={onClose}
 									whileHover={{ scale: 1.02 }}
 									whileTap={{ scale: 0.98 }}
-									className="flex items-center justify-center gap-2 w-full py-3.5 px-6 text-gray-500 border border-gray-800 font-semibold rounded-xl shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300"
+									className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 font-semibold text-slate-700 shadow-lg shadow-slate-200/50 transition-all duration-300 hover:shadow-xl dark:border-gray-800 dark:bg-transparent dark:text-gray-500 dark:shadow-black/20"
 								>
 									<IoMailOutline size={18} />
 									Me contacter
 								</motion.a>
-								<p className="text-center text-xs text-gray-400 mt-3">
+								<p className="mt-3 text-center text-xs text-slate-500 dark:text-gray-400">
 									Reponse sous 24h
 								</p>
 							</motion.div>

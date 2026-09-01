@@ -236,7 +236,7 @@ const Competences = () => {
                             backdrop-blur-sm
 
                             dark:border-white/10
-                            dark:bg-white/[0.02]
+                            dark:bg-white/2
                             dark:shadow-2xl dark:shadow-black/10
 
                             sm:px-6 sm:pb-8
@@ -383,12 +383,12 @@ const Competences = () => {
                                                         hover:border-slate-300
                                                         hover:shadow-xl
 
-                                                        dark:border-white/[0.08]
-                                                        dark:bg-white/[0.025]
+                                                        dark:border-white/8
+                                                        dark:bg-white/2.5
                                                         dark:shadow-lg
                                                         dark:shadow-black/10
                                                         dark:hover:border-white/20
-                                                        dark:hover:bg-white/[0.05]
+                                                        dark:hover:bg-white/5
                                                     `
                                             }
                                         `}
@@ -412,7 +412,7 @@ const Competences = () => {
 
                                                 transition-opacity duration-500
 
-                                                dark:from-white/[0.08]
+                                                dark:from-white/8
 
                                                 ${isActive
                                                     ? "opacity-100"

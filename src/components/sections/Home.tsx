@@ -119,7 +119,7 @@ const Home = () => {
                                     variants={itemVariants}
                                     className="mb-2 text-2xl md:text-2xl text-cyan-600 font-bold dark:text-cyan-400"
                                 >
-                                    Bonjour!👋
+                                    Bonjour 👋,
                                 </motion.p>
 
                                 <motion.p
