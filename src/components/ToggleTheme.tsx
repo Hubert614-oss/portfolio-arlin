@@ -10,12 +10,6 @@ const themeIcons: Record<Theme, React.ReactNode> = {
     system: <Monitor className="w-5 h-5" />,
 };
 
-// const themeLabels: Record<Theme, string> = {
-//     light: "Light",
-//     dark: "Dark",
-//     system: "System",
-// };
-
 export function ToggleTheme() {
     const { theme, setTheme } = useThemeStore();
     const [isOpen, setIsOpen] = useState(false);

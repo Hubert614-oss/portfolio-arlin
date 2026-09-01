@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import type { ReactNode } from 'react'
-import { motion, AnimatePresence, type Variants } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
 	IoClose,
 	IoHomeOutline,
@@ -26,7 +26,6 @@ const iconMap: Record<string, ReactNode> = {
 }
 
 const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) => {
-
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : ''
 		return () => {
@@ -42,65 +41,26 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 		return () => window.removeEventListener('keydown', handleKeyDown)
 	}, [isOpen, onClose])
 
-	const overlayVariants: Variants = {
-		hidden: { opacity: 0 },
-		visible: { opacity: 1 },
-		exit: { opacity: 0 },
-	}
-
-	const drawerVariants: Variants = {
-		hidden: { x: '-100%' },
-		visible: {
-			x: 0,
-			transition: {
-				type: 'spring' as const,
-				stiffness: 500,
-				damping: 40,
-				staggerChildren: 0.05,
-				delayChildren: 0.05,
-			},
-		},
-		exit: {
-			x: '-100%',
-			transition: {
-				type: 'spring' as const,
-				stiffness: 500,
-				damping: 40,
-			},
-		},
-	}
-
-	const itemVariants: Variants = {
-		hidden: { opacity: 0, x: -30 },
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: { type: 'spring' as const, stiffness: 500, damping: 35 },
-		},
-	}
-
-
 	return (
 		<>
 			<AnimatePresence>
 				{isOpen && (
 					<>
 						<motion.div
-							variants={overlayVariants}
-							initial="hidden"
-							animate="visible"
-							exit="exit"
-							transition={{ duration: 0.3 }}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.08, ease: 'easeOut' }}
 							onClick={onClose}
 							className="fixed inset-0 bg-black/40 backdrop-blur-sm z-60 md:hidden"
 							aria-hidden="true"
 						/>
 
 						<motion.div
-							variants={drawerVariants}
-							initial="hidden"
-							animate="visible"
-							exit="exit"
+							initial={{ x: '-100%' }}
+							animate={{ x: 0 }}
+							exit={{ x: '-100%' }}
+							transition={{ duration: 0.08, ease: 'easeOut' }}
 							className="fixed inset-y-0 left-0 h-dvh min-h-screen w-75 max-w-[85vw] bg-gray-950 z-70 md:hidden shadow-2xl flex flex-col pb-14"
 							role="dialog"
 							aria-modal="true"
@@ -108,33 +68,30 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 						>
 							<div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
 								<motion.span
-									initial={{ opacity: 0, x: -20 }}
-									animate={{ opacity: 1, x: 0 }}
-									transition={{ delay: 0.2 }}
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{ duration: 0.06 }}
 									className="text-xl font-bold text-white"
 								>
 									Arlin Hubert
 								</motion.span>
-								<motion.button
-									whileHover={{ scale: 1.1, rotate: 90 }}
-									whileTap={{ scale: 0.9 }}
+
+								<button
 									onClick={onClose}
 									className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
 									aria-label="Fermer le menu"
 								>
 									<IoClose size={20} />
-								</motion.button>
+								</button>
 							</div>
 
 							<nav className="flex-1 overflow-y-auto px-4 py-6">
 								<ul className="flex flex-col gap-1">
 									{navItems.map((item) => (
-										<motion.li key={item.label} variants={itemVariants}>
+										<li key={item.label}>
 											<Link
 												to={item.route}
-												onClick={() => {
-													onClose();
-												}}
+												onClick={onClose}
 												className="group flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-200"
 											>
 												<span className="text-cyan/70 group-hover:text-cyan transition-colors">
@@ -143,24 +100,15 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 												<span className="text-base font-medium tracking-wide">
 													{item.label}
 												</span>
-												<motion.span
-													className="ml-auto opacity-0 group-hover:opacity-100 text-gray-400"
-													initial={false}
-													animate={{ x: isOpen === true ? 0 : -10 }}
-												>
-													→
-												</motion.span>
+												<span className="ml-auto text-gray-400">→</span>
 											</Link>
-										</motion.li>
+										</li>
 									))}
 								</ul>
 
-								<motion.div
-									variants={itemVariants}
-									className="mt-6 mx-4 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
-								/>
+								<div className="mt-6 mx-4 h-px bg-linear-to-r from-transparent via-white/15 to-transparent" />
 
-								<motion.div variants={itemVariants} className="mt-6 px-4">
+								<div className="mt-6 px-4">
 									<p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
 										Contact
 									</p>
@@ -170,27 +118,22 @@ const MenuDrawerMobile = ({ navItems, isOpen, onClose }: MenuDrawerMobileProps) 
 									>
 										hubertarlin1@gmail.com
 									</a>
-								</motion.div>
+								</div>
 							</nav>
 
-							<motion.div
-								variants={itemVariants}
-								className="p-4 border-t border-white/10 bg-white/5"
-							>
-								<motion.a
+							<div className="p-4 border-t border-white/10 bg-white/5">
+								<a
 									href="#contact"
 									onClick={onClose}
-									whileHover={{ scale: 1.02 }}
-									whileTap={{ scale: 0.98 }}
 									className="flex items-center justify-center gap-2 w-full py-3.5 px-6 text-gray-500 border border-gray-800 font-semibold rounded-xl shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300"
 								>
 									<IoMailOutline size={18} />
 									Me contacter
-								</motion.a>
+								</a>
 								<p className="text-center text-xs text-gray-400 mt-3">
 									Reponse sous 24h
 								</p>
-							</motion.div>
+							</div>
 						</motion.div>
 					</>
 				)}
