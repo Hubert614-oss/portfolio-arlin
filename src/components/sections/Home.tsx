@@ -19,7 +19,7 @@ const Home = () => {
     const statsRef = useRef<HTMLDivElement | null>(null)
     const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" })
 
-    const [isDownloading, setIsDownloading] = useState(false);
+    const [_isDownloading, setIsDownloading] = useState(false);
 
     const { theme } = useThemeStore();
 
