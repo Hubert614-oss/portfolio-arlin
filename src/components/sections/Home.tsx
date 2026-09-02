@@ -6,7 +6,7 @@ import { containerVariants, itemVariants, titleContainerVariants, titleLetterVar
 import { stats } from '../../utils/data';
 import { Link } from "react-router-dom";
 
-import cvFile from '../../assets/cv-arlin.pdf';
+import cvFile from '../../assets/TOHANDRAINY Hubert Arlin (cv).pdf';
 import cvPreview from '../../assets/cv.webp';
 import { useThemeStore } from "../../stores/themeStore";
 import AnimatedBackground from "../AnimatedBackground";
@@ -19,6 +19,7 @@ const Home = () => {
     const statsRef = useRef<HTMLDivElement | null>(null)
     const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" })
 
+    const [isDownloading, setIsDownloading] = useState(false);
 
     const { theme } = useThemeStore();
 
@@ -181,10 +182,10 @@ const Home = () => {
                                 {/* CTA Buttons */}
                                 <motion.div
                                     variants={itemVariants}
-                                    className="flex flex-row flex-wrap gap-2 sm:gap-4"
+                                    className="flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:gap-4"
                                 >
                                     <Link to="/projets"
-                                        className="group relative px-3 py-2.5 text-[11px] font-bold bg-slate-900 text-white rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-slate-900/20 text-center sm:px-8 sm:py-4 sm:text-base dark:bg-slate-800 border border-slate-700/50 dark:border-slate-600/50 dark:text-white dark:hover:bg-slate-700/30 dark:hover:border-slate-500/50"
+                                        className="group relative shrink-0 rounded-xl border border-slate-700/50 bg-slate-900 px-2.5 py-2 text-[10px] font-bold text-white text-center shadow-lg shadow-slate-900/20 transition-all duration-300 sm:px-8 sm:py-4 sm:text-base dark:border-slate-600/50 dark:bg-slate-800 dark:text-white dark:hover:border-slate-500/50 dark:hover:bg-slate-700/30"
                                     >
                                         <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
                                             Voir mes projets
@@ -195,11 +196,11 @@ const Home = () => {
                                                 →
                                             </motion.span>
                                         </span>
-                                        <div className="absolute inset-0 bg-linear-to-r from-cyan-200/30 to-slate-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:from-cyan/20 dark:to-gray-900" />
+                                        <div className="absolute inset-0 bg-linear-to-r from-cyan-200/30 to-slate-200 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-cyan/20 dark:to-gray-900" />
                                     </Link>
 
                                     <Link to="/contact"
-                                        className="group px-3 py-2.5 text-[11px] font-bold bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all duration-300 backdrop-blur-sm text-center sm:px-8 sm:py-4 sm:text-base dark:bg-transparent dark:border-white/20 dark:text-white dark:hover:bg-white/5 dark:hover:border-white/30"
+                                        className="group shrink-0 rounded-xl border border-slate-300 bg-white px-2.5 py-2 text-[10px] font-bold text-slate-700 text-center transition-all duration-300 hover:border-slate-400 hover:bg-slate-50 hover:text-slate-900 sm:px-8 sm:py-4 sm:text-base dark:border-white/20 dark:bg-transparent dark:text-white dark:hover:border-white/30 dark:hover:bg-white/5"
                                     >
                                         <span className="flex items-center justify-center gap-1.5 sm:gap-2">
                                             Me contacter
@@ -216,21 +217,33 @@ const Home = () => {
                                     <a
                                         href={cvFile}
                                         download="CV-Arlin-Hubert.pdf"
-                                        className="group inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-200 bg-cyan-50 px-2.5 py-2 text-[10px] font-bold text-cyan-700 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-100 hover:text-cyan-800 sm:gap-3 sm:text-sm sm:px-4 sm:py-3 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:border-cyan-300 dark:hover:bg-cyan-500/20 dark:hover:text-white"
+                                        onClick={() => {
+                                        setIsDownloading(true);
+
+                                        setTimeout(() => {
+                                            setIsDownloading(false);
+                                        }, 2000);
+                                    }}
+                                        className="group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl border border-cyan-200 bg-cyan-50 px-2 py-2 text-[10px] font-bold text-cyan-700 transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-100 hover:text-cyan-800 sm:gap-3 sm:px-4 sm:py-3 sm:text-sm dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:border-cyan-300 dark:hover:bg-cyan-500/20 dark:hover:text-white"
                                     >
                                         <img
-                                            src={cvPreview}
-                                            alt="Aperçu du CV"
-                                            className="h-7 w-7 rounded-full object-cover border border-cyan-400/60 shadow-lg shadow-cyan-500/20 sm:h-10 sm:w-10 dark:border-cyan-300/60"
-                                        />
-                                        <span>Mon CV</span>
-                                        <motion.span
-                                            animate={{ y: [0, 2, 0] }}
-                                            transition={{ duration: 1.5, repeat: Infinity }}
-                                            className="text-xs sm:text-sm"
-                                        >
-                                            ↓
-                                        </motion.span>
+                src={cvPreview}
+                alt="Aperçu du CV"
+                className="h-6 w-6 rounded-full border border-cyan-400/60 object-cover shadow-lg shadow-cyan-500/20 sm:h-10 sm:w-10 dark:border-cyan-300/60"
+            />
+
+            <span>Mon CV</span>
+
+            <motion.span
+                animate={{ y: [0, 2, 0] }}
+                transition={{
+                    duration: 1.5,
+                    repeat: Infinity
+                }}
+                className="text-xs sm:text-sm"
+            >
+                ↓
+            </motion.span>
                                     </a>
                                 </motion.div>
                             </motion.div>
