@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import cvFile from '../../assets/TOHANDRAINY Hubert Arlin (cv).pdf';
 import cvPreview from '../../assets/cv.webp';
-// import arlinPhoto from '../../assets/arlin webp 1.svg';
+import arlinPhoto from '../../assets/arlin webp 1.svg';
 import { useThemeStore } from "../../stores/themeStore";
 import AnimatedBackground from "../AnimatedBackground";
 
@@ -261,7 +261,7 @@ const Home = () => {
                                     className="relative w-full max-w-48 sm:max-w-sm md:max-w-md"
                                 >
                                     <div className="relative w-full aspect-square rounded-full p-0 flex items-center justify-center bg-linear-to-br from-cyan-100 to-indigo-100 border-2 border-cyan-200 overflow-hidden dark:from-cyan/20 dark:to-iris/20 dark:border-cyan/30">
-                                        {/* <img src={arlinPhoto} alt="Arlin Hubert" className="w-full h-full object-cover" /> */}
+                                        <img src={arlinPhoto} alt="Arlin Hubert" className="w-full h-full object-cover" />
                                     </div>
 
                                     {/* Badge */}
