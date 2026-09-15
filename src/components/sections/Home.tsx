@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import cvFile from '../../assets/TOHANDRAINY Hubert Arlin (cv).pdf';
 import cvPreview from '../../assets/cv.webp';
-import arlinPhoto from '../../assets/arlin webp 1.svg';
+// import arlinPhoto from '../../assets/arlin webp 1.svg';
 import { useThemeStore } from "../../stores/themeStore";
 import AnimatedBackground from "../AnimatedBackground";
 
