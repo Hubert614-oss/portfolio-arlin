@@ -65,7 +65,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
   const initNetwork = useCallback((canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     const width = canvas.width;
     const height = canvas.height;
-    
+
     const nodes: NetworkNode[] = Array.from({ length: networkNodeCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -81,7 +81,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
-      
+
       // Mise à jour des positions
       nodes.forEach(node => {
         node.x += node.vx;
@@ -118,7 +118,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
 
         // Connexions avec la souris
         const mouseDist = Math.sqrt(
-          (nodes[i].x - mousePos.current.x) ** 2 + 
+          (nodes[i].x - mousePos.current.x) ** 2 +
           (nodes[i].y - mousePos.current.y) ** 2
         );
         if (mouseDist < mouseConnectionDistance) {
@@ -138,10 +138,10 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
       // Dessiner les nœuds
       nodes.forEach(node => {
         const mouseDist = Math.sqrt(
-          (node.x - mousePos.current.x) ** 2 + 
+          (node.x - mousePos.current.x) ** 2 +
           (node.y - mousePos.current.y) ** 2
         );
-        
+
         // Effet de "pulse" quand la souris est proche
         if (mouseDist < 200) {
           const factor = 1 + (1 - mouseDist / 200) * 1.5;
@@ -153,15 +153,15 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
         // Glow
         ctx.shadowBlur = isDark ? 15 : 8;
         ctx.shadowColor = isDark ? 'rgba(56, 189, 248, 0.8)' : 'rgba(59, 130, 246, 0.6)';
-        
+
         ctx.fillStyle = isDark
           ? 'rgba(186, 230, 253, 0.9)' // sky-200
           : 'rgba(37, 99, 235, 0.9)';  // blue-600
-        
+
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
-        
+
         ctx.shadowBlur = 0;
       });
 
@@ -173,7 +173,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
 
   useEffect(() => {
     if (!showNetwork) return;
-    
+
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -198,7 +198,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
         y: e.clientY - rect.top,
       };
     };
-    
+
     const handleMouseLeave = () => {
       mousePos.current = { x: -1000, y: -1000 };
     };
