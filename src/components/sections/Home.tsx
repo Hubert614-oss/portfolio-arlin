@@ -189,7 +189,7 @@ const Home = () => {
                                 {/* CTA Buttons */}
                                 <motion.div
                                     variants={itemVariants}
-                                    className="flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:gap-4"
+                                    className="flex flex-row flex-nowrap items-center gap-2 overflow-x-hidden sm:gap-4"
                                 >
                                     <Link to="/projets"
                                         className="group relative shrink-0 rounded-xl border border-slate-700/50 bg-slate-900 px-2.5 py-2 text-[10px] font-bold text-white text-center shadow-lg shadow-slate-900/20 transition-all duration-300 sm:px-8 sm:py-4 sm:text-base dark:border-slate-600/50 dark:bg-slate-800 dark:text-white dark:hover:border-slate-500/50 dark:hover:bg-slate-700/30"
